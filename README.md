@@ -13,6 +13,7 @@ It provides a safe foundation for a production SEO warehouse without including c
 - SQL views for landing-page trends, query trends, winners and losers, and opportunity pages;
 - optional Google Search Console import with read-only credentials and pagination;
 - repeatable daily imports through a separate scheduler container;
+- a locally hosted Metabase dashboard with an automated read-only connection;
 - synthetic demo data, unit tests, Docker Compose, and CI.
 
 ## Architecture
@@ -72,6 +73,14 @@ make import-gsc            # fetch and upsert finalized data
 make start-gsc-scheduler   # repeat the import every 24 hours
 make gsc-logs              # inspect scheduler output
 ```
+
+Optional browser dashboard:
+
+```bash
+./dashboard.sh
+```
+
+Then open [http://localhost:3000](http://localhost:3000). See [`METABASE_GUIDE.md`](METABASE_GUIDE.md).
 
 Stop the demo with:
 
@@ -150,7 +159,15 @@ CI runs the tests and the public-readiness check on every push and pull request.
 - No API key, OAuth token, service-account file, or `.env` file is included.
 - No client name, domain, query export, analytics report, or deployment address is included.
 - All committed metrics are synthetic and safe to share.
+- PostgreSQL and Metabase bind to `127.0.0.1` and are not exposed to other
+  computers by the default configuration.
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+The original code and documentation in this repository are available under the
+MIT License. See [`LICENSE`](LICENSE).
+
+Metabase is not copied into or relicensed by this repository. Docker Compose
+downloads the official Metabase Open Source image at runtime; that software is
+distributed separately under the
+[GNU Affero General Public License](https://github.com/metabase/metabase/blob/master/LICENSE.txt).

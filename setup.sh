@@ -40,6 +40,8 @@ until docker compose exec -T postgres sh -c 'pg_isready -U "$POSTGRES_USER" -d "
     sleep 2
 done
 
+docker compose exec -T postgres sh /docker-entrypoint-initdb.d/003_reader.sh
+
 echo "Building the importer..."
 docker compose build app
 

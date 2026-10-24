@@ -35,6 +35,8 @@ if (-not $ready) {
     exit 1
 }
 
+docker compose exec -T postgres sh /docker-entrypoint-initdb.d/003_reader.sh
+
 Write-Host "Building the importer..."
 docker compose build app
 Write-Host "Validating synthetic data..."

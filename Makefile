@@ -1,4 +1,4 @@
-.PHONY: setup start stop status validate-demo import-demo summary test public-check gsc-check import-gsc import-gsc-dry-run start-gsc-scheduler stop-gsc-scheduler gsc-logs
+.PHONY: setup start stop status validate-demo import-demo summary test public-check gsc-check import-gsc import-gsc-dry-run start-gsc-scheduler stop-gsc-scheduler gsc-logs dashboard dashboard-status dashboard-logs dashboard-stop
 
 setup:
 	./setup.sh
@@ -44,3 +44,15 @@ stop-gsc-scheduler:
 
 gsc-logs:
 	docker compose --profile gsc logs --tail=100 gsc-scheduler
+
+dashboard:
+	./dashboard.sh
+
+dashboard-status:
+	docker compose --profile dashboard ps
+
+dashboard-logs:
+	docker compose --profile dashboard logs --tail=100 metabase
+
+dashboard-stop:
+	docker compose --profile dashboard stop metabase metabase-db
