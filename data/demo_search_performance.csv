@@ -1,0 +1,13 @@
+date,site_code,site_name,domain,url,query,device,country,impressions,clicks,position
+2026-01-05,demo_shop,Demo Shop,shop.example,https://www.shop.example/chairs/?utm_source=newsletter,ergonomic chair,desktop,us,420,31,6.4
+2026-01-05,demo_shop,Demo Shop,shop.example,https://shop.example/chairs/,office chair,mobile,us,610,38,8.1
+2026-01-05,demo_shop,Demo Shop,shop.example,https://shop.example/desks,standing desk,desktop,us,360,19,9.7
+2026-01-06,demo_shop,Demo Shop,shop.example,https://shop.example/chairs,ergonomic chair,desktop,us,470,39,5.9
+2026-01-06,demo_shop,Demo Shop,shop.example,https://shop.example/chairs/,office chair,mobile,us,640,44,7.5
+2026-01-06,demo_shop,Demo Shop,shop.example,https://shop.example/desks/,standing desk,desktop,us,390,25,8.8
+2026-01-07,demo_shop,Demo Shop,shop.example,https://shop.example/chairs,ergonomic chair,desktop,us,530,51,5.2
+2026-01-07,demo_shop,Demo Shop,shop.example,https://shop.example/chairs,office chair,mobile,us,690,52,6.9
+2026-01-07,demo_shop,Demo Shop,shop.example,https://shop.example/desks,standing desk,desktop,us,430,32,7.8
+2026-01-05,demo_docs,Demo Knowledge Base,docs.example,https://docs.example/guides/technical-seo,technical seo guide,desktop,gb,280,24,4.8
+2026-01-06,demo_docs,Demo Knowledge Base,docs.example,https://docs.example/guides/technical-seo/,technical seo guide,desktop,gb,310,29,4.4
+2026-01-07,demo_docs,Demo Knowledge Base,docs.example,https://docs.example/guides/technical-seo/?gclid=demo,technical seo guide,desktop,gb,350,36,3.9
