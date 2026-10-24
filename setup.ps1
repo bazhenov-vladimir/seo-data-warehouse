@@ -15,6 +15,8 @@ if (-not (Test-Path ".env")) {
     Write-Host "Created local configuration: .env"
 }
 
+New-Item -ItemType Directory -Force -Path "credentials" | Out-Null
+
 Write-Host "Starting PostgreSQL..."
 docker compose up -d postgres
 

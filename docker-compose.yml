@@ -26,12 +26,52 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-seo_demo_local_only}
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
+      GOOGLE_APPLICATION_CREDENTIALS: ${GSC_CREDENTIALS_FILE:-/app/credentials/gsc-service-account.json}
+      GSC_SITE_CODE: ${GSC_SITE_CODE:-}
+      GSC_SITE_NAME: ${GSC_SITE_NAME:-}
+      GSC_PROPERTY: ${GSC_PROPERTY:-}
+      GSC_LOOKBACK_DAYS: ${GSC_LOOKBACK_DAYS:-7}
+      GSC_LAG_DAYS: ${GSC_LAG_DAYS:-3}
+      GSC_SEARCH_TYPE: ${GSC_SEARCH_TYPE:-web}
     volumes:
       - ./data:/app/data:ro
+      - ./credentials:/app/credentials:ro
     depends_on:
       postgres:
         condition: service_healthy
     profiles: ["tools"]
+
+  gsc-scheduler:
+    build:
+      context: .
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        while true; do
+          seo-warehouse import-gsc || echo 'GSC import failed; see the log above.';
+          sleep "$${GSC_INTERVAL_SECONDS}";
+        done
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-seo_demo}
+      POSTGRES_USER: ${POSTGRES_USER:-seo_demo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-seo_demo_local_only}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      GOOGLE_APPLICATION_CREDENTIALS: ${GSC_CREDENTIALS_FILE:-/app/credentials/gsc-service-account.json}
+      GSC_SITE_CODE: ${GSC_SITE_CODE:-}
+      GSC_SITE_NAME: ${GSC_SITE_NAME:-}
+      GSC_PROPERTY: ${GSC_PROPERTY:-}
+      GSC_LOOKBACK_DAYS: ${GSC_LOOKBACK_DAYS:-7}
+      GSC_LAG_DAYS: ${GSC_LAG_DAYS:-3}
+      GSC_SEARCH_TYPE: ${GSC_SEARCH_TYPE:-web}
+      GSC_INTERVAL_SECONDS: ${GSC_INTERVAL_SECONDS:-86400}
+    volumes:
+      - ./credentials:/app/credentials:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles: ["gsc"]
 
 volumes:
   postgres_data:

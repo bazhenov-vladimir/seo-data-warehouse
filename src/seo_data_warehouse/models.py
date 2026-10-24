@@ -17,15 +17,15 @@ class SearchPerformanceRow:
     normalized_query: str
     device: str
     country: str
-    impressions: int
-    clicks: int
+    impressions: Decimal
+    clicks: Decimal
     position: Decimal
 
     @property
     def ctr(self) -> Decimal:
         if self.impressions == 0:
             return Decimal(0)
-        return Decimal(self.clicks) / Decimal(self.impressions)
+        return self.clicks / self.impressions
 
     @property
     def natural_key(self) -> tuple[object, ...]:

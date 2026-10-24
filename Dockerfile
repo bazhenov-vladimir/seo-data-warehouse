@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY pyproject.toml README.md LICENSE ./
 COPY src ./src
-RUN python -m pip install --no-cache-dir '.[dev]'
+RUN python -m pip install --no-cache-dir '.[dev,gsc]'
 
 COPY data ./data
 COPY tests ./tests

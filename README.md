@@ -11,6 +11,8 @@ It provides a safe foundation for a production SEO warehouse without including c
 - idempotent PostgreSQL upserts;
 - an analytics-friendly dimensional schema;
 - SQL views for landing-page trends, query trends, winners and losers, and opportunity pages;
+- optional Google Search Console import with read-only credentials and pagination;
+- repeatable daily imports through a separate scheduler container;
 - synthetic demo data, unit tests, Docker Compose, and CI.
 
 ## Architecture
@@ -28,7 +30,9 @@ PostgreSQL: sites -> pages / queries -> search_performance_daily
 Analytics views and example SQL queries
 ```
 
-The default workflow is deliberately API-free. It works with the included synthetic CSV and does not require Google or Yandex credentials. A real API adapter can be added behind the same importer boundary.
+The default workflow is deliberately API-free. It works with the included synthetic CSV and does not require Google or Yandex credentials. The optional Search Console adapter uses the same validated importer boundary.
+
+Google Search Console support is optional. See [`GSC_SETUP.md`](GSC_SETUP.md) after the synthetic workflow is running.
 
 ## Quick start for SEO specialists
 
@@ -57,6 +61,16 @@ make status       # show service status
 make import-demo  # validate and import the synthetic CSV
 make summary      # show imported totals
 make test         # run the automated tests in Docker
+```
+
+Optional Search Console commands:
+
+```bash
+make gsc-check             # verify credentials and property access
+make import-gsc-dry-run    # fetch totals without changing PostgreSQL
+make import-gsc            # fetch and upsert finalized data
+make start-gsc-scheduler   # repeat the import every 24 hours
+make gsc-logs              # inspect scheduler output
 ```
 
 Stop the demo with:

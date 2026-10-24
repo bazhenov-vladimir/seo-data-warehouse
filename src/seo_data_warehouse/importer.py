@@ -28,11 +28,11 @@ class RowValidationError(ValueError):
     """A CSV row cannot be safely imported."""
 
 
-def _non_negative_int(value: str, field: str, line: int) -> int:
+def _non_negative_decimal(value: str, field: str, line: int) -> Decimal:
     try:
-        parsed = int(value)
-    except ValueError as error:
-        raise RowValidationError(f"line {line}: {field} must be an integer") from error
+        parsed = Decimal(value)
+    except InvalidOperation as error:
+        raise RowValidationError(f"line {line}: {field} must be numeric") from error
     if parsed < 0:
         raise RowValidationError(f"line {line}: {field} must be non-negative")
     return parsed
@@ -54,8 +54,8 @@ def parse_row(raw: dict[str, str], line: int) -> SearchPerformanceRow:
     if urlsplit_host(normalized_url) != domain:
         raise RowValidationError(f"line {line}: url host must match domain")
 
-    impressions = _non_negative_int(raw["impressions"], "impressions", line)
-    clicks = _non_negative_int(raw["clicks"], "clicks", line)
+    impressions = _non_negative_decimal(raw["impressions"], "impressions", line)
+    clicks = _non_negative_decimal(raw["clicks"], "clicks", line)
     if clicks > impressions:
         raise RowValidationError(f"line {line}: clicks cannot exceed impressions")
 

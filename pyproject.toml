@@ -14,6 +14,10 @@ dependencies = ["psycopg[binary]>=3.2,<4"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.3,<9", "ruff>=0.8,<1"]
+gsc = [
+  "google-api-python-client>=2.184,<3",
+  "google-auth>=2.40,<3",
+]
 
 [project.scripts]
 seo-warehouse = "seo_data_warehouse.cli:main"

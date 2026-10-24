@@ -25,6 +25,8 @@ if [ ! -f .env ]; then
     echo "Created local configuration: .env"
 fi
 
+mkdir -p credentials
+
 echo "Starting PostgreSQL..."
 docker compose up -d postgres
 
