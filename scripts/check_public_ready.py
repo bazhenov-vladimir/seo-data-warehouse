@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import re
+import subprocess
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 SKIP_PARTS = {".git", ".pytest_cache", ".venv", "__pycache__"}
@@ -21,9 +21,25 @@ SECRET_PATTERNS = {
 }
 
 
+def candidate_files() -> list[Path]:
+    if (ROOT / ".git").exists():
+        result = subprocess.run(
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
+        return [
+            ROOT / item.decode()
+            for item in result.stdout.split(b"\0")
+            if item
+        ]
+    return [path for path in ROOT.rglob("*") if path.is_file()]
+
+
 def main() -> None:
     findings: list[str] = []
-    for path in ROOT.rglob("*"):
+    for path in candidate_files():
         if any(part in SKIP_PARTS for part in path.parts) or not path.is_file():
             continue
         if path.resolve() == Path(__file__).resolve():

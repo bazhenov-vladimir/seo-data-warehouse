@@ -1,4 +1,4 @@
-from seo_warehouse_demo.cli import build_parser
+from seo_data_warehouse.cli import build_parser
 
 
 def test_cli_requires_a_command() -> None:

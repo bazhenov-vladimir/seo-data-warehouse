@@ -1,4 +1,4 @@
-from seo_warehouse_demo.normalize import normalize_query, normalize_url
+from seo_data_warehouse.normalize import normalize_query, normalize_url
 
 
 def test_normalize_url_removes_www_tracking_and_trailing_slash() -> None:

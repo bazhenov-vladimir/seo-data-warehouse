@@ -1,6 +1,6 @@
 # Security and data handling
 
-This repository is a portfolio demo and must contain synthetic data only.
+This public starter repository must contain synthetic data only.
 
 ## Do not commit
 

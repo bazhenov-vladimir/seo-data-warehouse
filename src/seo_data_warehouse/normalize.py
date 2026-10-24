@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import posixpath
-from urllib.parse import parse_qsl, urlencode, unquote, urlsplit, urlunsplit
-
+from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 
 TRACKING_PARAMETERS = {
     "fbclid",
@@ -48,8 +47,7 @@ def normalize_url(url: str, *, keep_non_tracking_query: bool = False) -> str | N
         return None
 
     host = (parsed.hostname or "").casefold()
-    if host.startswith("www."):
-        host = host[4:]
+    host = host.removeprefix("www.")
     if not _valid_public_host(host):
         return None
 

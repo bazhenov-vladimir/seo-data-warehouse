@@ -8,7 +8,7 @@ from .normalize import normalize_url
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="SEO data warehouse portfolio demo")
+    parser = argparse.ArgumentParser(description="SEO data warehouse starter kit")
     commands = parser.add_subparsers(dest="command", required=True)
 
     validate = commands.add_parser("validate", help="validate a CSV without a database")

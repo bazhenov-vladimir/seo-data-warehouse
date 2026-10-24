@@ -24,7 +24,7 @@ class SearchPerformanceRow:
     @property
     def ctr(self) -> Decimal:
         if self.impressions == 0:
-            return Decimal("0")
+            return Decimal(0)
         return Decimal(self.clicks) / Decimal(self.impressions)
 
     @property

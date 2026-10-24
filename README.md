@@ -1,8 +1,8 @@
-# SEO Data Warehouse Demo
+# SEO Data Warehouse Starter
 
-A small, reproducible data pipeline for storing and analysing daily organic-search performance in PostgreSQL.
+A practical, reproducible starter kit for storing and analysing daily organic-search performance in PostgreSQL.
 
-This portfolio project demonstrates the reusable engineering ideas behind a production SEO warehouse without including client code, private reports, credentials, or real search data.
+It provides a safe foundation for a production SEO warehouse without including client code, private reports, credentials, or real search data.
 
 ## What it demonstrates
 
@@ -30,22 +30,34 @@ Analytics views and example SQL queries
 
 The default workflow is deliberately API-free. It works with the included synthetic CSV and does not require Google or Yandex credentials. A real API adapter can be added behind the same importer boundary.
 
-## Quick start with Docker
+## Quick start for SEO specialists
 
-Requirements: Docker with the Compose plugin.
+The only required application is Docker Desktop. Python is not required on your computer.
 
 ```bash
-cp .env.example .env
-docker compose up -d
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e '.[dev]'
-seo-warehouse-demo validate data/demo_search_performance.csv
-seo-warehouse-demo import-csv data/demo_search_performance.csv
-seo-warehouse-demo summary
+./setup.sh
 ```
 
-PostgreSQL is exposed on `localhost:55432` by default so the demo does not take over a common local port. Change `POSTGRES_PORT` in `.env` if needed.
+On Windows PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+```
+
+The setup command checks Docker, creates a local configuration, starts PostgreSQL, validates the synthetic CSV, imports it, and prints a summary. PostgreSQL is exposed on `localhost:55432` by default so the starter does not take over a common local port.
+
+See [`SEO_SPECIALIST_GUIDE.md`](SEO_SPECIALIST_GUIDE.md) for a non-programmer-oriented walkthrough.
+
+## Everyday commands
+
+```bash
+make start        # start PostgreSQL
+make stop         # stop the project without deleting its data
+make status       # show service status
+make import-demo  # validate and import the synthetic CSV
+make summary      # show imported totals
+make test         # run the automated tests in Docker
+```
 
 Stop the demo with:
 
@@ -55,7 +67,7 @@ docker compose down
 
 Add `-v` only when you intentionally want to delete the demo database volume.
 
-## Run without PostgreSQL
+## Developer setup without Docker
 
 CSV validation and URL normalisation do not need a database:
 
@@ -63,8 +75,8 @@ CSV validation and URL normalisation do not need a database:
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev]'
-seo-warehouse-demo validate data/demo_search_performance.csv
-seo-warehouse-demo normalize-url 'https://www.example.com/guides/seo/?utm_source=demo'
+seo-warehouse validate data/demo_search_performance.csv
+seo-warehouse normalize-url 'https://www.example.com/guides/seo/?utm_source=sample'
 pytest
 ```
 

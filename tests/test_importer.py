@@ -2,8 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from seo_warehouse_demo.importer import RowValidationError, load_csv, parse_row
-
+from seo_data_warehouse.importer import RowValidationError, load_csv, parse_row
 
 ROOT = Path(__file__).resolve().parents[1]
 

@@ -3,7 +3,7 @@ requires = ["hatchling>=1.25,<2"]
 build-backend = "hatchling.build"
 
 [project]
-name = "seo-data-warehouse-demo"
+name = "seo-data-warehouse-starter"
 version = "0.1.0"
 description = "A reproducible PostgreSQL pipeline for synthetic SEO performance data"
 readme = "README.md"
@@ -16,10 +16,10 @@ dependencies = ["psycopg[binary]>=3.2,<4"]
 dev = ["pytest>=8.3,<9", "ruff>=0.8,<1"]
 
 [project.scripts]
-seo-warehouse-demo = "seo_warehouse_demo.cli:main"
+seo-warehouse = "seo_data_warehouse.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/seo_warehouse_demo"]
+packages = ["src/seo_data_warehouse"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

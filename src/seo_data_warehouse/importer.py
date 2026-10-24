@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import csv
+from collections.abc import Iterable
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
-from typing import Iterable
 
 from .models import SearchPerformanceRow
 from .normalize import normalize_query, normalize_url
-
 
 REQUIRED_COLUMNS = {
     "clicks",
